@@ -1,20 +1,21 @@
-export type UserRole = 'residential' | 'commercial' | 'admin'
+export type UserRole = 'admin' | 'residential' | 'commercial'
 
 export interface User {
   id: string
-  email: string
   name: string
+  email: string
   role: UserRole
-  createdAt: Date
 }
 
 export interface Appointment {
   id: string
   title: string
-  description: string
   date: Date
+  time: string
+  location: string
+  type: 'viewing' | 'maintenance' | 'meeting'
   userId: string
-  status: 'pending' | 'confirmed' | 'cancelled'
+  status: 'scheduled' | 'completed' | 'cancelled'
 }
 
 export interface Document {
@@ -29,10 +30,20 @@ export interface Document {
 export interface Payment {
   id: string
   amount: number
-  status: 'pending' | 'completed' | 'failed'
-  userId: string
   date: Date
-  type: 'rent' | 'maintenance' | 'other'
+  status: 'pending' | 'completed' | 'failed'
+  type: 'rent' | 'maintenance' | 'deposit'
+  userId: string
+  method: 'credit_card' | 'bank_transfer'
+}
+
+export interface Transaction {
+  id: string
+  type: 'deposit' | 'withdrawal'
+  amount: number
+  date: Date
+  description: string
+  status: 'pending' | 'completed' | 'failed'
 }
 
 export interface Notification {
@@ -42,17 +53,7 @@ export interface Notification {
   userId: string
   read: boolean
   createdAt: Date
-  type: 'appointment' | 'payment' | 'document' | 'system'
-}
-
-export interface MaintenanceRequest {
-  id: string
-  title: string
-  description: string
-  status: 'pending' | 'in-progress' | 'completed'
-  userId: string
-  createdAt: Date
-  priority: 'low' | 'medium' | 'high'
+  type: 'appointment' | 'payment' | 'document' | 'maintenance'
 }
 
 export interface Property {
@@ -60,6 +61,9 @@ export interface Property {
   name: string
   address: string
   type: 'residential' | 'commercial'
-  ownerId: string
   status: 'available' | 'occupied' | 'maintenance'
+  rent: number
+  size: number
+  amenities: string[]
+  images: string[]
 }

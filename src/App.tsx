@@ -4,7 +4,9 @@ import { useTheme } from './hooks/useTheme'
 import { AuthProvider, useAuth } from './lib/auth/AuthContext'
 import AdminDashboard from './pages/dashboard/admin/AdminDashboard'
 import ResidentialDashboard from './pages/dashboard/residential/ResidentialDashboard'
+import CommercialDashboard from './pages/dashboard/commercial/CommercialDashboard'
 import LoginForm from './components/auth/LoginForm'
+import NotificationCenter from './components/notifications/NotificationCenter'
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth()
@@ -47,14 +49,23 @@ function App() {
                     >
                       Residential
                     </Link>
+                    <Link
+                      to="/commercial"
+                      className="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700"
+                    >
+                      Commercial
+                    </Link>
                   </div>
                 </div>
-                <button
-                  onClick={toggleTheme}
-                  className="p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700"
-                >
-                  {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-                </button>
+                <div className="flex items-center space-x-4">
+                  <NotificationCenter />
+                  <button
+                    onClick={toggleTheme}
+                    className="p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700"
+                  >
+                    {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+                  </button>
+                </div>
               </div>
             </div>
           </nav>
@@ -74,6 +85,14 @@ function App() {
               element={
                 <PrivateRoute>
                   <ResidentialDashboard />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/commercial"
+              element={
+                <PrivateRoute>
+                  <CommercialDashboard />
                 </PrivateRoute>
               }
             />

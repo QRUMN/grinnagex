@@ -14,7 +14,7 @@ import {
   Legend,
   ResponsiveContainer
 } from 'recharts'
-import { TrendingUp, Users, DollarSign, Home, Calendar } from 'lucide-react'
+import { Users, DollarSign, Home, Calendar } from 'lucide-react'
 
 const revenueData = [
   { month: 'Jan', revenue: 45000, expenses: 32000, occupancy: 92 },

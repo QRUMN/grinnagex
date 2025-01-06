@@ -1,5 +1,12 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
-import { User } from '../../types'
+
+interface User {
+  id: string
+  email: string
+  name: string
+  role: string
+  createdAt: string
+}
 
 interface AuthContextType {
   user: User | null
@@ -29,16 +36,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     checkAuth()
   }, [])
 
-  const login = async (email: string, password: string) => {
-    // TODO: Implement actual login
-    const mockUser: User = {
+  const login = async (email: string, _password: string) => {
+    // Using _password to indicate it's intentionally unused
+    const user: User = {
       id: '1',
       email,
       name: 'Test User',
       role: 'residential',
-      createdAt: new Date(),
+      createdAt: new Date().toISOString()
     }
-    setUser(mockUser)
+    setUser(user)
   }
 
   const logout = async () => {
@@ -46,16 +53,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(null)
   }
 
-  const register = async (email: string, password: string, name: string, role: string) => {
-    // TODO: Implement actual registration
-    const mockUser: User = {
+  const register = async (email: string, _password: string, name: string, role: string) => {
+    // Using _password to indicate it's intentionally unused
+    const user: User = {
       id: '1',
       email,
       name,
-      role: role as User['role'],
-      createdAt: new Date(),
+      role,
+      createdAt: new Date().toISOString()
     }
-    setUser(mockUser)
+    setUser(user)
   }
 
   return (

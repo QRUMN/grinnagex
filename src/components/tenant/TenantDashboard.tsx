@@ -1,4 +1,4 @@
-import { DollarSign, Calendar, Tool, Bell } from 'lucide-react'
+import { DollarSign, Calendar, Wrench, Bell } from 'lucide-react'
 
 interface DashboardStat {
   title: string
@@ -27,7 +27,7 @@ export default function TenantDashboard() {
     {
       title: 'Open Requests',
       value: '2',
-      icon: <Tool size={24} />,
+      icon: <Wrench size={24} />,
       change: '1 in progress',
       color: 'yellow'
     },

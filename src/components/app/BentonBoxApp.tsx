@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import {
   Home,
-  Box,
   Settings,
   Bell,
   Thermometer,
@@ -10,7 +9,8 @@ import {
   Plus,
   MoreVertical,
   Search,
-  ChevronRight
+  ChevronRight,
+  X as CloseIcon
 } from 'lucide-react'
 
 interface StorageBox {
@@ -293,7 +293,7 @@ export default function BentonBoxApp() {
                 onClick={() => setSelectedBox(null)}
                 className="text-gray-500"
               >
-                <X size={24} />
+                <CloseIcon className="w-4 h-4" />
               </button>
             </div>
 

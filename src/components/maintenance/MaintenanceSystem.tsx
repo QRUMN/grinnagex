@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { Tool, Clock, AlertTriangle, CheckCircle, Plus, Search, Filter } from 'lucide-react'
+import { useState } from 'react';
+import { Clock, AlertTriangle, CheckCircle, Plus, Search, Wrench } from 'lucide-react';
 
 interface MaintenanceRequest {
   id: string
@@ -38,15 +38,15 @@ const mockRequests: MaintenanceRequest[] = [
   }
 ]
 
-export default function MaintenanceSystem() {
+const MaintenanceSystem = () => {
   const [requests, setRequests] = useState(mockRequests)
   const [showNewRequest, setShowNewRequest] = useState(false)
-  const [filter, setFilter] = useState<'all' | MaintenanceRequest['status']>('all')
   const [searchTerm, setSearchTerm] = useState('')
+  const [statusFilter, setStatusFilter] = useState('all')
   const [priorityFilter, setPriorityFilter] = useState<'all' | MaintenanceRequest['priority']>('all')
 
   const filteredRequests = requests.filter(request => {
-    const matchesStatus = filter === 'all' || request.status === filter
+    const matchesStatus = statusFilter === 'all' || request.status === statusFilter
     const matchesPriority = priorityFilter === 'all' || request.priority === priorityFilter
     const matchesSearch = request.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       request.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -114,8 +114,8 @@ export default function MaintenanceSystem() {
         </div>
         <div className="flex gap-4">
           <select
-            value={filter}
-            onChange={(e) => setFilter(e.target.value as typeof filter)}
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value as typeof statusFilter)}
             className="px-3 py-2 border rounded-md dark:bg-gray-700 dark:border-gray-600"
           >
             <option value="all">All Status</option>
@@ -158,7 +158,7 @@ export default function MaintenanceSystem() {
                 <p className="text-gray-600 dark:text-gray-400 mt-1">{request.description}</p>
                 <div className="flex items-center gap-4 mt-2 text-sm text-gray-500 dark:text-gray-400">
                   <span className="flex items-center">
-                    <Tool size={16} className="mr-1" />
+                    <Wrench className="w-5 h-5" />
                     {request.property}
                   </span>
                   <span className="flex items-center">
@@ -248,3 +248,5 @@ export default function MaintenanceSystem() {
     </div>
   )
 }
+
+export default MaintenanceSystem;

@@ -1,12 +1,16 @@
+import { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom'
 import { Sun, Moon } from 'lucide-react'
 import { useTheme } from './hooks/useTheme'
 import { AuthProvider, useAuth } from './lib/auth/AuthContext'
-import AdminDashboard from './pages/dashboard/admin/AdminDashboard'
-import ResidentialDashboard from './pages/dashboard/residential/ResidentialDashboard'
-import CommercialDashboard from './pages/dashboard/commercial/CommercialDashboard'
-import LoginForm from './components/auth/LoginForm'
+import Loading from './components/common/Loading'
 import NotificationCenter from './components/notifications/NotificationCenter'
+import LoginForm from './components/auth/LoginForm'
+
+// Lazy load components
+const AdminDashboard = lazy(() => import('./pages/dashboard/admin/AdminDashboard'))
+const ResidentialDashboard = lazy(() => import('./pages/dashboard/residential/ResidentialDashboard'))
+const CommercialDashboard = lazy(() => import('./pages/dashboard/commercial/CommercialDashboard'))
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth()
@@ -70,51 +74,53 @@ function App() {
             </div>
           </nav>
 
-          <Routes>
-            <Route path="/login" element={<LoginForm />} />
-            <Route
-              path="/admin"
-              element={
-                <PrivateRoute>
-                  <AdminDashboard />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/residential"
-              element={
-                <PrivateRoute>
-                  <ResidentialDashboard />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/commercial"
-              element={
-                <PrivateRoute>
-                  <CommercialDashboard />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/"
-              element={
-                <div className="container mx-auto px-4 py-8">
-                  <h1 className="text-3xl font-bold text-center">
-                    Welcome to Grinnage Ex
-                  </h1>
-                  <div className="mt-8 text-center">
-                    <Link
-                      to="/login"
-                      className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700"
-                    >
-                      Get Started
-                    </Link>
+          <Suspense fallback={<Loading />}>
+            <Routes>
+              <Route path="/login" element={<LoginForm />} />
+              <Route
+                path="/admin"
+                element={
+                  <PrivateRoute>
+                    <AdminDashboard />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/residential"
+                element={
+                  <PrivateRoute>
+                    <ResidentialDashboard />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/commercial"
+                element={
+                  <PrivateRoute>
+                    <CommercialDashboard />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/"
+                element={
+                  <div className="container mx-auto px-4 py-8">
+                    <h1 className="text-3xl font-bold text-center">
+                      Welcome to Grinnage Ex
+                    </h1>
+                    <div className="mt-8 text-center">
+                      <Link
+                        to="/login"
+                        className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700"
+                      >
+                        Get Started
+                      </Link>
+                    </div>
                   </div>
-                </div>
-              }
-            />
-          </Routes>
+                }
+              />
+            </Routes>
+          </Suspense>
         </div>
       </Router>
     </AuthProvider>

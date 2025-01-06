@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Home, DollarSign, Tool, FileText, Bell, Settings, LogOut } from 'lucide-react'
+import { Home, DollarSign, Wrench, FileText, Bell, Settings, LogOut } from 'lucide-react'
 import TenantDashboard from './TenantDashboard'
 import TenantPayments from './TenantPayments'
 import TenantMaintenance from './TenantMaintenance'
@@ -33,7 +33,7 @@ export default function TenantPortal() {
     {
       id: 'maintenance',
       name: 'Maintenance',
-      icon: <Tool size={20} />,
+      icon: <Wrench size={20} />,
       component: <TenantMaintenance />
     },
     {

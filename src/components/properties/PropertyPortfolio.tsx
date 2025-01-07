@@ -5,25 +5,31 @@ import { Property } from '../../types'
 const mockProperties: Property[] = [
   {
     id: '1',
-    name: 'Sunset Apartments',
-    address: '123 Main St, City, State',
-    type: 'residential',
-    status: 'occupied',
-    rent: 1500,
+    name: 'Luxury Apartment',
+    title: 'Modern Luxury Apartment in Downtown',
+    description: 'Beautiful modern apartment with all amenities',
+    address: '123 Main St, City',
+    type: 'apartment',
+    status: 'available',
+    rent: 2500,
+    price: 450000,
     size: 1200,
-    amenities: ['Parking', 'Pool', 'Gym'],
-    images: ['apartment1.jpg', 'apartment2.jpg']
+    amenities: ['parking', 'pool', 'gym'],
+    images: []
   },
   {
     id: '2',
-    name: 'Downtown Office Complex',
-    address: '456 Business Ave, City, State',
-    type: 'commercial',
+    name: 'Cozy House',
+    title: 'Cozy Family House with Garden',
+    description: 'Perfect family home with a beautiful garden',
+    address: '456 Oak Ave, Suburb',
+    type: 'house',
     status: 'available',
-    rent: 3500,
-    size: 2500,
-    amenities: ['Parking', 'Security', 'Conference Room'],
-    images: ['office1.jpg', 'office2.jpg']
+    rent: 3000,
+    price: 550000,
+    size: 2000,
+    amenities: ['garage', 'garden', 'fireplace'],
+    images: []
   }
 ]
 
@@ -66,10 +72,13 @@ export default function PropertyPortfolio() {
     const [formData, setFormData] = useState<Omit<Property, 'id'>>(
       initialData || {
         name: '',
+        title: '',
+        description: '',
         address: '',
         type: 'residential',
         status: 'available',
         rent: 0,
+        price: 0,
         size: 0,
         amenities: [],
         images: []
@@ -84,6 +93,24 @@ export default function PropertyPortfolio() {
             type="text"
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+            className="w-full px-3 py-2 border rounded-md dark:bg-gray-700 dark:border-gray-600"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-1">Property Title</label>
+          <input
+            type="text"
+            value={formData.title}
+            onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+            className="w-full px-3 py-2 border rounded-md dark:bg-gray-700 dark:border-gray-600"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-1">Property Description</label>
+          <input
+            type="text"
+            value={formData.description}
+            onChange={(e) => setFormData({ ...formData, description: e.target.value })}
             className="w-full px-3 py-2 border rounded-md dark:bg-gray-700 dark:border-gray-600"
           />
         </div>
@@ -106,6 +133,8 @@ export default function PropertyPortfolio() {
             >
               <option value="residential">Residential</option>
               <option value="commercial">Commercial</option>
+              <option value="apartment">Apartment</option>
+              <option value="house">House</option>
             </select>
           </div>
           <div>
@@ -134,6 +163,20 @@ export default function PropertyPortfolio() {
               />
             </div>
           </div>
+          <div>
+            <label className="block text-sm font-medium mb-1">Price</label>
+            <div className="relative">
+              <span className="absolute left-3 top-2 text-gray-500">$</span>
+              <input
+                type="number"
+                value={formData.price}
+                onChange={(e) => setFormData({ ...formData, price: parseFloat(e.target.value) })}
+                className="w-full pl-8 pr-4 py-2 border rounded-md dark:bg-gray-700 dark:border-gray-600"
+              />
+            </div>
+          </div>
+        </div>
+        <div className="grid grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium mb-1">Size (sq ft)</label>
             <input
@@ -185,6 +228,8 @@ export default function PropertyPortfolio() {
             <option value="all">All Properties</option>
             <option value="residential">Residential</option>
             <option value="commercial">Commercial</option>
+            <option value="apartment">Apartment</option>
+            <option value="house">House</option>
           </select>
           <button
             onClick={() => setShowAddProperty(true)}
@@ -241,14 +286,18 @@ export default function PropertyPortfolio() {
                   <span className="text-gray-500 dark:text-gray-400">Rent</span>
                   <span className="font-medium text-green-500">${property.rent}/month</span>
                 </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-500 dark:text-gray-400">Price</span>
+                  <span className="font-medium text-green-500">${property.price}</span>
+                </div>
               </div>
               <div className="mt-4">
                 <p className="text-sm text-gray-500 dark:text-gray-400">Amenities</p>
                 <div className="flex flex-wrap gap-2 mt-2">
-                  {property.amenities.map((amenity, index) => (
+                  {property.amenities.map((amenity: string, index: number) => (
                     <span
                       key={index}
-                      className="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-xs"
+                      className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800"
                     >
                       {amenity}
                     </span>

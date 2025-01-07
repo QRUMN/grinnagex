@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Bell, X, Check, Calendar, FileText, CreditCard } from 'lucide-react'
 import { Notification } from '../../types'
+import { formatTime } from '../../utils/dateUtils';
 
 const mockNotifications: Notification[] = [
   {
@@ -110,7 +111,7 @@ export default function NotificationCenter() {
                         {notification.message}
                       </p>
                       <p className="text-xs text-gray-400 mt-1">
-                        {notification.createdAt.toLocaleTimeString()}
+                        {formatTime(notification.createdAt)}
                       </p>
                     </div>
                     {!notification.read && (

@@ -1,31 +1,35 @@
 import { useState } from 'react'
 import { FileText, Upload, Trash2, Download, Search } from 'lucide-react'
 import { Document } from '../../types'
+import { formatDate } from '../../utils/dateUtils';
 
 const mockDocuments: Document[] = [
   {
     id: '1',
     title: 'Lease Agreement',
-    url: '#',
-    userId: '1',
-    createdAt: new Date('2024-01-01'),
-    type: 'contract'
+    type: 'contract',
+    url: '/documents/lease.pdf',
+    userId: 'user123',
+    uploadedAt: new Date().toISOString(),
+    createdAt: new Date()
   },
   {
     id: '2',
-    title: 'Monthly Invoice - December',
-    url: '#',
-    userId: '1',
-    createdAt: new Date('2024-01-01'),
-    type: 'invoice'
+    title: 'Property Insurance',
+    type: 'insurance',
+    url: '/documents/insurance.pdf',
+    userId: 'user123',
+    uploadedAt: new Date().toISOString(),
+    createdAt: new Date()
   },
   {
     id: '3',
     title: 'Maintenance Report',
-    url: '#',
-    userId: '1',
-    createdAt: new Date('2024-01-01'),
-    type: 'other'
+    type: 'report',
+    url: '/documents/report.pdf',
+    userId: 'user123',
+    uploadedAt: new Date().toISOString(),
+    createdAt: new Date()
   }
 ]
 
@@ -102,7 +106,7 @@ export default function DocumentManager() {
               <div>
                 <h3 className="font-medium">{doc.title}</h3>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
-                  {doc.createdAt.toLocaleDateString()} • {doc.type}
+                  {formatDate(doc.createdAt)} • {doc.type}
                 </p>
               </div>
             </div>

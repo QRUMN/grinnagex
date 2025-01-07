@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { CreditCard, DollarSign, Calendar, ChevronDown, Check } from 'lucide-react'
 import { Payment } from '../../types'
+import { formatDate } from '../../utils/dateUtils';
 
 const mockPayments: Payment[] = [
   {
@@ -181,7 +182,7 @@ export default function PaymentProcessor() {
                 </div>
                 <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
                   <Calendar size={16} className="mr-1" />
-                  {payment.date.toLocaleDateString()}
+                  {formatDate(payment.date)}
                   <span className="mx-2">•</span>
                   <CreditCard size={16} className="mr-1" />
                   {payment.method}

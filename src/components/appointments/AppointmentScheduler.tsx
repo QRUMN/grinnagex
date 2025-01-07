@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Calendar, Clock, User, MapPin, Plus } from 'lucide-react'
 import { Appointment } from '../../types'
+import { formatDate } from '../../utils/dateUtils';
 
 const timeSlots = [
   '09:00', '09:30', '10:00', '10:30', '11:00', '11:30',
@@ -183,7 +184,7 @@ export default function AppointmentScheduler() {
                 <div className="flex items-center space-x-4 text-sm text-gray-500 dark:text-gray-400">
                   <div className="flex items-center">
                     <Clock size={16} className="mr-1" />
-                    {appointment.date.toLocaleDateString()} at {appointment.time}
+                    {formatDate(appointment.date)} at {appointment.time}
                   </div>
                   <div className="flex items-center">
                     <MapPin size={16} className="mr-1" />

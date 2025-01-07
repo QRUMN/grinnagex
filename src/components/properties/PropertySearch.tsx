@@ -5,25 +5,31 @@ import { Property } from '../../types'
 const mockProperties: Property[] = [
   {
     id: '1',
-    name: 'Sunset Apartments',
-    address: '123 Main St, City, State',
-    type: 'residential',
+    name: 'Luxury Apartment',
+    title: 'Modern Luxury Apartment in Downtown',
+    description: 'Beautiful modern apartment with all amenities',
+    address: '123 Main St, City',
+    type: 'apartment',
     status: 'available',
-    rent: 1500,
+    rent: 2500,
+    price: 450000,
     size: 1200,
-    amenities: ['Parking', 'Pool', 'Gym'],
-    images: ['apartment1.jpg']
+    amenities: ['parking', 'pool', 'gym'],
+    images: []
   },
   {
     id: '2',
-    name: 'Downtown Office Complex',
-    address: '456 Business Ave, City, State',
-    type: 'commercial',
-    status: 'occupied',
-    rent: 3500,
-    size: 2500,
-    amenities: ['Parking', 'Security', 'Conference Room'],
-    images: ['office1.jpg']
+    name: 'Cozy House',
+    title: 'Cozy Family House with Garden',
+    description: 'Perfect family home with a beautiful garden',
+    address: '456 Oak Ave, Suburb',
+    type: 'house',
+    status: 'available',
+    rent: 3000,
+    price: 550000,
+    size: 2000,
+    amenities: ['garage', 'garden', 'fireplace'],
+    images: []
   }
 ]
 
@@ -281,10 +287,10 @@ export default function PropertySearch() {
                 <span className="text-sm text-gray-500">{property.size} sq ft</span>
               </div>
               <div className="flex flex-wrap gap-2 mb-2">
-                {property.amenities.map((amenity, index) => (
+                {property.amenities.map((amenity: string, index: number) => (
                   <span
                     key={index}
-                    className="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-xs"
+                    className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800"
                   >
                     {amenity}
                   </span>

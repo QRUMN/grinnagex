@@ -1,23 +1,26 @@
 import { useState } from 'react'
 import { Wallet, CreditCard, Plus, ArrowUpRight, ArrowDownRight, DollarSign } from 'lucide-react'
 import { Transaction } from '../../types'
+import { formatDate } from '../../utils/dateUtils';
 
 const mockTransactions: Transaction[] = [
   {
     id: '1',
     type: 'deposit',
-    amount: 2000,
-    date: new Date('2025-01-01'),
-    description: 'Bank Transfer',
-    status: 'completed'
+    amount: 1500,
+    description: 'Rent Payment',
+    date: new Date(),
+    status: 'completed',
+    userId: 'user123'
   },
   {
     id: '2',
     type: 'withdrawal',
-    amount: 850,
-    date: new Date('2024-12-31'),
-    description: 'Rent Payment',
-    status: 'completed'
+    amount: 500,
+    description: 'Maintenance Fee',
+    date: new Date(),
+    status: 'completed',
+    userId: 'user123'
   }
 ]
 
@@ -36,7 +39,8 @@ export default function DigitalWallet() {
       amount: parseFloat(amount),
       date: new Date(),
       description: 'Added Funds',
-      status: 'completed'
+      status: 'completed',
+      userId: 'user123'
     }
 
     setTransactions([newTransaction, ...transactions])
@@ -133,9 +137,7 @@ export default function DigitalWallet() {
                 </div>
                 <div>
                   <p className="font-medium">{transaction.description}</p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
-                    {transaction.date.toLocaleDateString()}
-                  </p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">{formatDate(transaction.date)}</p>
                 </div>
               </div>
               <span
